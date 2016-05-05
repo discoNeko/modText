@@ -6,13 +6,15 @@ import java.io.IOException;
 import java.util.*;
 import java.math.*;
 
+import java.io.*;
+
 public class Main {
   public static void main(String[] args){
     StringBuilder sb = new StringBuilder();
     if(args.length==0){
         sb.append("Usage: java Main [file name] [-options]").append("\n");
-        sb.append("-sort : â¸çsãÊêÿÇËÇ≈èdï°ÇçÌèúÇµ,é´èëèáÇ…É\Å[ÉgÇ∑ÇÈ.").append("\n");
-        sb.append("-(int) : ÉâÉìÉ_ÉÄÇ»ëgÇ›çáÇÌÇπÇ(int)âÒèoóÕÇ∑ÇÈ.");
+        sb.append("-sort : ÊîπË°åÂå∫Âàá„Çä„ÅßÈáçË§á„ÇíÂâäÈô§„Åó,ËæûÊõ∏È†Ü„Å´„ÇΩ„Éº„Éà„Åô„Çã.").append("\n");
+        sb.append("-(int) : „É©„É≥„ÉÄ„É†„Å™ÁµÑ„ÅøÂêà„Çè„Åõ„Çí(int)ÂõûÂá∫Âäõ„Åô„Çã.");
         System.out.println(sb);
         return;
     }
@@ -21,7 +23,7 @@ public class Main {
     }else if(Integer.parseInt(args[1])>0){
       gen(args);
     }else{
-        sb.append("ïsñæÇ»ÉGÉâÅ[.");
+        sb.append("‰∏çÊòé„Å™„Ç®„É©„Éº.");
         System.out.println(sb);
         return;
     }
@@ -30,7 +32,7 @@ public class Main {
   public static void sort(String[] args){
     StringBuilder sb = new StringBuilder();
     try{
-      BufferedReader br = new BufferedReader(new FileReader(args[0]));
+      BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(args[0]),"UTF-8"));
       TreeSet<String> set = new TreeSet<String>();
       String str;
       while((str = br.readLine())!=null){
@@ -38,9 +40,10 @@ public class Main {
       }
       Iterator it = set.iterator();
       while (it.hasNext()) {
-          sb.append(it.next()).append("\r\n");
+        sb.append(it.next());
+        if(it.hasNext())sb.append("\r\n");
       }
-      FileWriter fw = new FileWriter(args[0], false);
+      FileWriter fw = new FileWriter("sorted_result.txt", true);
       fw.write(sb.toString());
       fw.close();
     }catch(IOException e){
@@ -51,7 +54,7 @@ public class Main {
   public static void gen(String[] args){
     StringBuilder sb = new StringBuilder();
     try{
-      BufferedReader br = new BufferedReader(new FileReader(args[0]));
+      BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(args[0]),"UTF-8"));
       ArrayList<String> array = new ArrayList<String>();
       String str;
       while((str = br.readLine())!=null)
@@ -69,16 +72,16 @@ public class Main {
         int no = rnd.nextInt(4);
         if(r1==r2)r2=(r2+1)%l;
         if(no==0){
-          System.out.println(array.get(r1)+"ÇÃ"+array.get(r2));
-          sb.append(array.get(r1)).append("ÇÃ").append(array.get(r2)).append("\r\n");
+          System.out.println(array.get(r1)+"„ÅÆ"+array.get(r2));
+          sb.append(array.get(r1)).append("„ÅÆ").append(array.get(r2)).append("\r\n");
         }else if(no<3 && array.get(r1).length()+array.get(r2).length()<5){
           int r3 = rnd.nextInt(l);
           while(r3==r1 || r3==r2){
             r3=(r3+1)%l;
           }
           if(array.get(r3).length()<5){
-            System.out.println(array.get(r1)+array.get(r2)+"ÇÃ"+array.get(r3));
-            sb.append(array.get(r1)).append(array.get(r2)).append("ÇÃ").append(array.get(r3)).append("\r\n");
+            System.out.println(array.get(r1)+array.get(r2)+"„ÅÆ"+array.get(r3));
+            sb.append(array.get(r1)).append(array.get(r2)).append("„ÅÆ").append(array.get(r3)).append("\r\n");
           }else{
             System.out.println(array.get(r1)+array.get(r2)+array.get(r3));
             sb.append(array.get(r1)).append(array.get(r2)).append(array.get(r3)).append("\r\n");
@@ -89,7 +92,7 @@ public class Main {
         }
       }
       sb.append("\r\n");
-      FileWriter fw = new FileWriter("result.txt", true);
+      FileWriter fw = new FileWriter("generated_result.txt", true);
       fw.write(sb.toString());
       fw.close();
     }catch(IOException e){
