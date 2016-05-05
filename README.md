@@ -1,6 +1,7 @@
 # sortText
 tool / 主にtextファイルを対象にしたファイル内容のソート  
 日本語(BOMなしUTF-8)で記述されたファイルを想定  
+ANSIでエンコーディングされたファイルとして出力される
 
 ## install
 >git clone https://github.com/discoNeko/sortText.git  
